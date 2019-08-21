@@ -1,0 +1,52 @@
+﻿
+@model  PagedList.IPagedList<TextsEditor.Models.File>
+@Styles.Render("~/Content/PagedList.css")
+@using PagedList.Mvc;
+<h2 class="text-center" style="margin-top:2em">All files</h2>
+<div class="container " style="margin-top:1em">
+
+    @using (Html.BeginForm(actionName: "AllFile", controllerName: "Home", method: FormMethod.Get, htmlAttributes: new { @class = "form-inline" }))
+    {
+        <div class="form-group offset-sm-7">
+            @Html.TextBox(name: "search", value: null, htmlAttributes: new { @class = "form-control mr-sm-2", placeholder = "Search" })
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    }
+    @using (Html.BeginForm("AllFile", "Home", FormMethod.Get, new { @class = "form-inline offset-md-2" }))
+    {
+        <input type="hidden" id="page" name="page" value="@ViewBag.Page" />
+        <input type="hidden" id="search" name="search" value="@ViewBag.Search" />
+        <button type="submit" class="btn btn-info btn-sm">Sort</button>
+        @Html.DropDownList("sort", new MultiSelectList(new string[] { "name A-Z", "name Z-A" }))
+    }
+</div>
+<div class="container col-md-8 text-center justify-content-center " style="margin-top:1em; color:blue">
+    <table class="table table-bordered table-hover">
+        <thead class="container table-dark ">
+            <tr class="col-md-12">
+                <td>Name</td>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody class="container table-active   ">
+            @foreach (var item in Model)
+            {
+                <tr class="col-md-12">
+                    <td>@item.Name</td>
+                    <td>
+                        @Html.ActionLink("Open", "OpenFile", "Home", new { id = item.Id }, new { @class = "btn btn-outline-success col-md-3" })
+                        @Html.ActionLink(linkText: "Remove", actionName: "RemoveFile", controllerName: "Home", routeValues: new { id = item.Id }, htmlAttributes: new { @class = "btn btn-outline-danger col-md-3" })
+                        @Html.ActionLink("Save", "GetFile", "Home", new { id = item.Id }, new { @class = "btn btn-outline-info col-md-3" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+<div class="text-center justify-content-center text-white">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) from @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("AllFile", new { page, sort = ViewBag.Sort }))
+</div>
+

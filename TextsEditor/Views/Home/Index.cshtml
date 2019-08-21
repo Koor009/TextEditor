@@ -1,0 +1,33 @@
+﻿
+@Styles.Render("~/Content/SiteItem.css")
+@section scripts {
+    @Scripts.Render("~/Scripts/Effect.js")
+}
+<h2 class="text-center" style="margin-top:2em">Text Editor</h2><br />
+
+<hr />
+<div class="container">
+    <div class="card-deck">
+        <div class="card">
+            <div class="item">
+                <a href=@Url.Action("CreateFile", "Home")><img class="card-img-top" src=@Url.Content("~/Content/Images/Create.png") alt="Create text"></a>
+            </div>
+            <div class="border-effect bg-warning"></div>
+            <div class="card-body">
+                <h4 class="card-title text-center">@Html.ActionLink("New File", "CreateFile", "Home", new { @class = "btn btn-secondary btn-lg text-center" })</h4>
+                <p class="card-text text-center">You have the opportunity to create new text.</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="item">
+                <a href="@Url.Action("AllFile", "Home")"><img class="card-img-top" src=@Url.Content("~/Content/Images/Files.png") alt="All files"></a>
+            </div>
+            <div class="border-effect bg-warning"></div>
+            <div class="card-body ">
+                <h4 class="card-title text-center">@Html.ActionLink("All Files", "AllFile", "Home", new { @class = "btn btn-secondary btn-lg " })</h4>
+                <p class="card-text text-center">You can view all previously created files.</p>
+            </div>
+        </div>
+    </div>
+</div> 
+<hr />

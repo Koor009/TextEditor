@@ -1,0 +1,18 @@
+﻿<h2 class="text-center" style="margin-top:2em">New file</h2>
+<div class="container col-md-12" >
+    @using (Html.BeginForm(actionName: "CreateFile", controllerName: "Home", method: FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", role = "form", style ="margin-top:3em" }))
+    {
+        <div class="form-group">
+            @Html.Label(expression: "name", labelText: "Name",htmlAttributes: new {style="color:white" }) <br />
+            @Html.TextBox(name: "name",value:null, htmlAttributes: new { @required = "required", @class = "form-control mr-sm-2", placeholder = "Name file" })<br />
+        </div>
+        <div class="form-group">
+            @Html.Label(expression: "text", labelText: "Text", htmlAttributes: new { style = "color:white" })<br />
+            @Html.TextArea(name: "text", value: null, rows: 20, columns: 50, htmlAttributes: new { @class = "form-control mr-sm-2 col-md-12", @style = "overflow:auto; " })
+        </div>
+        <div class="form-group">
+            <button type="submit" name="enter" class="btn btn-success">Save</button>
+            @Html.ActionLink("Cancel", "Index", "Home", new { @class = "btn btn-info" })
+        </div>
+    }
+</div>
